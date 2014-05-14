@@ -10,4 +10,4 @@ endfunction
 silent! command! ClearSpaceAndIndent call ClearExtraSpace()
 noremap <F2> :ClearSpaceAndIndent<CR>
 
-vnoremap <F2> :!column -t<CR>
+vnoremap <F2> :!column -t <CR> :ClearSpaceAndIndent<CR>
