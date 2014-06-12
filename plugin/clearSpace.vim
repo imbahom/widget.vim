@@ -1,3 +1,4 @@
+
 function! ClearExtraSpace()
     let curLineNumber=line(".")
     let curColNumber=col(".")
@@ -12,5 +13,16 @@ noremap <F2> :ClearSpaceAndIndent<CR>
 
 vnoremap <F2> :!column -t <CR> :ClearSpaceAndIndent<CR>
 
-noremap <Leader>vd }kV{j
-noremap <Leader>vu {jV}k
+let s:DIR_UP = 'DIR_UP'
+let s:DIR_DOWN = 'DIR_DOWN'
+fu! s:selectParagraph(dir)
+    silent! call ClearExtraSpace()
+    if a:dir == s:DIR_UP
+        silent! normal {jV^%
+    elseif a:dir == s:DIR_DOWN
+        silent! normal }kV^%
+    endif
+endf!
+
+noremap <Leader>vd :call <SID>selectParagraph('DIR_DOWN')<CR>
+noremap <Leader>vu :call <SID>selectParagraph('DIR_UP')<CR>
