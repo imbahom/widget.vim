@@ -26,3 +26,7 @@ endf!
 
 noremap <Leader>vd :call  <SID>selectParagraph('DIR_DOWN')<CR>
 noremap <Leader>vu :call  <SID>selectParagraph('DIR_UP')<CR>
+
+noremap <F1> :help <c-r>=expand("<cword>")<CR><CR>
+
+
