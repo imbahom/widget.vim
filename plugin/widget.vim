@@ -19,8 +19,8 @@ fu! s:selectParagraph(dir)
     endif
 endf!
 
-vnoremap <F2>        :!column -t<CR> :call ClearExtraSpaceAndIndent<CR>
-noremap  <F2>        :call  ClearExtraSpaceAndIndent<CR>
+vnoremap <F2>        :!column -t<CR> :call ClearExtraSpaceAndIndent()<CR>
+noremap  <F2>        :call  ClearExtraSpaceAndIndent()<CR>
 noremap  <Leader>vd  :call  <SID>selectParagraph('DIR_DOWN')<CR>
 noremap  <Leader>vu  :call  <SID>selectParagraph('DIR_UP')<CR>
 noremap  <F1>        :help  <c-r>=expand("<cword>")<CR><CR>
