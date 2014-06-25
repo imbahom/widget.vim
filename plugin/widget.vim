@@ -1,5 +1,5 @@
 
-function! ClearExtraSpaceAndIndent()
+function! s:ClearExtraSpaceAndIndent()
     let curLineNumber=line(".")
     let curColNumber=col(".")
     silent! %s/\s*$//
@@ -8,20 +8,31 @@ function! ClearExtraSpaceAndIndent()
     silent! normal zz
 endfunction
 
-let s:DIR_UP = 'DIR_UP'
-let s:DIR_DOWN = 'DIR_DOWN'
-fu! s:selectParagraph(dir)
-    call ClearExtraSpaceAndIndent()
+fu! s:selectParagraph(dir) abort
+    let s:DIR_UP = 0x01
+    let s:DIR_DOWN = 0x10
     if a:dir == s:DIR_UP
-        normal {}kV^%
+        " normal {}kV^%
+        normal [[V][
     elseif a:dir == s:DIR_DOWN
-        normal }{jV^%
+        " normal }{jV^%
+        normal ][V[[
     endif
 endf!
 
-vnoremap <F2>        :!column -t<CR> :call ClearExtraSpaceAndIndent()<CR>
-noremap  <F2>        :call  ClearExtraSpaceAndIndent()<CR>
-noremap  <Leader>vd  :call  <SID>selectParagraph('DIR_DOWN')<CR>
-noremap  <Leader>vu  :call  <SID>selectParagraph('DIR_UP')<CR>
-noremap  <F1>        :help  <c-r>=expand("<cword>")<CR><CR>
+fu! s:hexEditingSwitcher(yes) abort
+    if a:yes == 1
+        exe "%!xxd"
+    else
+        exe "%!xxd -r"
+    endif
+endf!
 
+vnoremap  <F2>        :!column -t<CR>\
+            \:call  <SID>ClearExtraSpaceAndIndent()<CR>
+nnoremap  <F2>        :call  <SID>ClearExtraSpaceAndIndent()<CR>
+nnoremap  <Leader>vd  :call  <SID>selectParagraph(0x10)<CR>
+nnoremap  <Leader>vu  :call  <SID>selectParagraph(0x01)<CR>
+nnoremap  <F1>        :help  <c-r>=expand("<cword>")<CR><CR>
+nnoremap  <Leader>hy  :call  <SID>hexEditingSwitcher(1)<CR>
+nnoremap  <Leader>hn  :call  <SID>hexEditingSwitcher(0)<CR>
