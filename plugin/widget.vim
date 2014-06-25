@@ -18,6 +18,8 @@ fu! s:selectParagraph(dir) abort
         " normal }{jV^%
         normal ][V[[
     endif
+    unlet s:DIR_DOWN
+    unlet s:DIR_UP
 endf!
 
 fu! s:hexEditingSwitcher(yes) abort
