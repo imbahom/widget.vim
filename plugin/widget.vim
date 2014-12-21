@@ -32,6 +32,12 @@ fu! s:hexEditingSwitcher(yes) abort
     endif
 endf!
 
+fu! s:runCurFileWithCmd(cmd)
+    execute "w"
+    " execute " !clear;".a:cmd." ".expand("%")
+    execute "!clear;".a:cmd." %"
+endf!
+
 vnoremap  <F2>        :!column -t<CR>\
             \:call  <SID>ClearExtraSpaceAndIndent()<CR>
 nnoremap  <F2>        :call  <SID>ClearExtraSpaceAndIndent()<CR>
@@ -41,6 +47,6 @@ nnoremap  <F1>        :help  <c-r>=expand("<cword>")<CR><CR>
 nnoremap  <Leader>hy  :call  <SID>hexEditingSwitcher(1)<CR>
 nnoremap  <Leader>hn  :call  <SID>hexEditingSwitcher(0)<CR>
 
-au FileType ruby nnoremap <F5> :!ruby %<CR>
-au FileType lua nnoremap <F5> :!lua %<CR>
+au FileType ruby nnoremap <F5> :call <SID>runCurFileWithCmd("ruby")<CR>
+au FileType lua nnoremap <F5> :call <SID>runCurFileWithCmd("lua")<CR>
 
