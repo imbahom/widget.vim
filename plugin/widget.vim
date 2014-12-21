@@ -8,6 +8,8 @@ function! s:ClearExtraSpaceAndIndent()
     silent! normal zz
 endfunction
 
+" todo
+" lua , c/c++
 fu! s:selectParagraph(dir) abort
     let s:DIR_UP = 0x01
     let s:DIR_DOWN = 0x10
@@ -38,3 +40,7 @@ nnoremap  <Leader>vu  :call  <SID>selectParagraph(0x01)<CR>
 nnoremap  <F1>        :help  <c-r>=expand("<cword>")<CR><CR>
 nnoremap  <Leader>hy  :call  <SID>hexEditingSwitcher(1)<CR>
 nnoremap  <Leader>hn  :call  <SID>hexEditingSwitcher(0)<CR>
+
+au FileType ruby nnoremap <F5> :!ruby %<CR>
+au FileType lua nnoremap <F5> :!lua %<CR>
+
