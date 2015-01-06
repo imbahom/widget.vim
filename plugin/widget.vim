@@ -47,6 +47,9 @@ nnoremap  <F1>        :help  <c-r>=expand("<cword>")<CR><CR>
 nnoremap  <Leader>hy  :call  <SID>hexEditingSwitcher(1)<CR>
 nnoremap  <Leader>hn  :call  <SID>hexEditingSwitcher(0)<CR>
 
-au FileType ruby nnoremap <F5> :call <SID>runCurFileWithCmd("ruby")<CR>
-au FileType lua nnoremap <F5> :call <SID>runCurFileWithCmd("lua")<CR>
+au  FileType  ruby    nnoremap  <F5>  :call  <SID>runCurFileWithCmd("ruby")<CR>
+au  FileType  lua     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("lua")<CR>
+au  FileType  go      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("go run")<CR>
+au  FileType  python  nnoremap  <F5>  :call  <SID>runCurFileWithCmd("python")<CR>
+
 
