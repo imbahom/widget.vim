@@ -38,6 +38,11 @@ fu! s:runCurFileWithCmd(cmd)
     execute "!clear;".a:cmd." %"
 endf!
 
+function! g:CopyText()
+    silent '<,'>w !pbcopy
+endfunction
+vnoremap <leader>y :<c-u>call g:CopyText()<cr>
+
 vnoremap  <F2>        :!column -t<CR>\
             \:call  <SID>ClearExtraSpaceAndIndent()<CR>
 nnoremap  <F2>        :call  <SID>ClearExtraSpaceAndIndent()<CR>
@@ -51,5 +56,6 @@ au  FileType  ruby    nnoremap  <F5>  :call  <SID>runCurFileWithCmd("ruby")<CR>
 au  FileType  lua     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("lua")<CR>
 au  FileType  go      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("go run")<CR>
 au  FileType  python  nnoremap  <F5>  :call  <SID>runCurFileWithCmd("python")<CR>
+au  FileType  sh  nnoremap  <F5>  :call  <SID>runCurFileWithCmd("sh")<CR>
 
 
