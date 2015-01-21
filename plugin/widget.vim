@@ -20,8 +20,8 @@ fu! s:selectParagraph(dir) abort
         " normal }{jV^%
         normal ][V[[
     endif
-    unlet s:DIR_DOWN
-    unlet s:DIR_UP
+    unlet! s:DIR_DOWN
+    unlet! s:DIR_UP
 endf!
 
 fu! s:hexEditingSwitcher(yes) abort
@@ -35,24 +35,30 @@ endf!
 fu! s:runCurFileWithCmd(cmd,ignoreCurFile)
     execute "w"
     " strpart(cmd,0,1)
+    let cmd = a:cmd
+    let pre = ""
     if char2nr(a:cmd) == char2nr("!")
         if !has("gui_running")
-            execute "!clear"
+            let pre = "!clear;"
         endif
     endif
-    " execute " !clear;".a:cmd." ".expand("%")
+    if pre == "!clear;" && strpart(cmd,0,1) == "!"
+        let cmd = strpart(cmd,1,strlen(cmd)-1)
+    endif
 
     if a:ignoreCurFile == 1
-        execute a:cmd
+        execute pre.cmd
     else
-        execute a:cmd." %"
+        execute pre.cmd." %"
     endif
+    unl! cmd
+    unl! pre
 endf!
 
-function! g:CopyText()
+fu! s:CopyText()
     silent '<,'>w !pbcopy
-endfunction
-vnoremap <leader>y :<c-u>call g:CopyText()<cr>
+endf!
+vnoremap <leader>y :<c-u>call <SID>CopyText()<cr>
 
 vnoremap  <F2>        :!column -t<CR>\
             \:call  <SID>ClearExtraSpaceAndIndent()<CR>
