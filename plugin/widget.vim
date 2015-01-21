@@ -36,7 +36,9 @@ fu! s:runCurFileWithCmd(cmd,ignoreCurFile)
     execute "w"
     " strpart(cmd,0,1)
     if char2nr(a:cmd) == char2nr("!")
-        execute "!clear"
+        if !has("gui_running")
+            execute "!clear"
+        endif
     endif
     " execute " !clear;".a:cmd." ".expand("%")
 
@@ -67,6 +69,8 @@ au  FileType  go      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!go run",0)
 au  FileType  python  nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!python",0)<CR>
 au  FileType  sh      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!sh",0)<CR>
 au  FileType  vimwiki nnoremap  <F5>  :call  <SID>runCurFileWithCmd("Vimwiki2HTML",1)<CR>
+au  FileType  vimwiki nnoremap  <F6>  :call  <SID>runCurFileWithCmd("VimwikiAll2HTML",1)<CR>
+au  FileType  vimwiki nnoremap  <F10>  :call  <SID>runCurFileWithCmd("Vimwiki2HTMLBrowse",1)<CR>
 au  FileType  vim     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("source",0)<CR>
 
 
