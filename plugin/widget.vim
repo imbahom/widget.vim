@@ -32,10 +32,19 @@ fu! s:hexEditingSwitcher(yes) abort
     endif
 endf!
 
-fu! s:runCurFileWithCmd(cmd)
+fu! s:runCurFileWithCmd(cmd,ignoreCurFile)
     execute "w"
+    " strpart(cmd,0,1)
+    if char2nr(a:cmd) == char2nr("!")
+        execute "!clear"
+    endif
     " execute " !clear;".a:cmd." ".expand("%")
-    execute "!clear;".a:cmd." %"
+
+    if a:ignoreCurFile == 1
+        execute a:cmd
+    else
+        execute a:cmd." %"
+    endif
 endf!
 
 function! g:CopyText()
@@ -52,10 +61,12 @@ nnoremap  <F1>        :help  <c-r>=expand("<cword>")<CR><CR>
 nnoremap  <Leader>hy  :call  <SID>hexEditingSwitcher(1)<CR>
 nnoremap  <Leader>hn  :call  <SID>hexEditingSwitcher(0)<CR>
 
-au  FileType  ruby    nnoremap  <F5>  :call  <SID>runCurFileWithCmd("ruby")<CR>
-au  FileType  lua     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("lua")<CR>
-au  FileType  go      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("go run")<CR>
-au  FileType  python  nnoremap  <F5>  :call  <SID>runCurFileWithCmd("python")<CR>
-au  FileType  sh  nnoremap  <F5>  :call  <SID>runCurFileWithCmd("sh")<CR>
+au  FileType  ruby    nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!ruby",0)<CR>
+au  FileType  lua     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!lua",0)<CR>
+au  FileType  go      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!go run",0)<CR>
+au  FileType  python  nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!python",0)<CR>
+au  FileType  sh      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!sh",0)<CR>
+au  FileType  vimwiki nnoremap  <F5>  :call  <SID>runCurFileWithCmd("Vimwiki2HTML",1)<CR>
+au  FileType  vim     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("source",0)<CR>
 
 
