@@ -1,3 +1,7 @@
+if exists("g:loaded_widget")
+    finish
+endif
+let g:loaded_widget = 1
 
 function! s:ClearExtraSpaceAndIndent()
     let curLineNumber=line(".")
@@ -69,14 +73,16 @@ nnoremap  <F1>        :help  <c-r>=expand("<cword>")<CR><CR>
 nnoremap  <Leader>hy  :call  <SID>hexEditingSwitcher(1)<CR>
 nnoremap  <Leader>hn  :call  <SID>hexEditingSwitcher(0)<CR>
 
+
+" mv to vimrc
 au  FileType  ruby    nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!ruby",0)<CR>
 au  FileType  lua     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!lua",0)<CR>
 au  FileType  go      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!go run",0)<CR>
 au  FileType  python  nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!python",0)<CR>
+au  FileType  cpp     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!g++ %;./a.out",1)<CR>
+au  FileType  c       nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!gcc %;./a.out",1)<CR>
 au  FileType  sh      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!sh",0)<CR>
 au  FileType  vimwiki nnoremap  <F5>  :call  <SID>runCurFileWithCmd("Vimwiki2HTML",1)<CR>
 au  FileType  vimwiki nnoremap  <F6>  :call  <SID>runCurFileWithCmd("VimwikiAll2HTML",1)<CR>
-au  FileType  vimwiki nnoremap  <F10>  :call  <SID>runCurFileWithCmd("Vimwiki2HTMLBrowse",1)<CR>
+au  FileType  vimwiki nnoremap  <F10> :call  <SID>runCurFileWithCmd("Vimwiki2HTMLBrowse",1)<CR>
 au  FileType  vim     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("source",0)<CR>
-
-
