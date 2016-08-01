@@ -63,6 +63,7 @@ au  FileType  go      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!go run",0)
 au  FileType  python  nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!python3",0)<CR>
 au  FileType  cpp     nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!g++ %;./a.out",1)<CR>
 au  FileType  c       nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!gcc %;./a.out",1)<CR>
+au  FileType  rust    nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!rustc %;./%:r",1)<CR>
 au  FileType  java    nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!javac %;java %:r",1)<CR>
 au  FileType  sh      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!sh",0)<CR>
 au  FileType  zsh      nnoremap  <F5>  :call  <SID>runCurFileWithCmd("!zsh",0)<CR>
